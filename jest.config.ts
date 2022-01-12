@@ -3,7 +3,7 @@ export default {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   testEnvironment: 'node',
-  trasnform: {
+  transform: {
     '.+\\.ts$': 'ts-jest'
   }
 }
