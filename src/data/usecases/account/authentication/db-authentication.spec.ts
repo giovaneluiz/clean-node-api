@@ -1,10 +1,5 @@
-import { AuthenticationParams } from '../../../../domain/usecases/authentication'
-import { HashComparer } from '../../../protocols/criptography/compare'
-import { TokenGenerator } from '../../../protocols/criptography/token-generator'
-import { LoadAccountByEmailRepository } from '../../../protocols/db/load-account-by-email-repository'
-import { UpdateAccessTokenRepository } from '../../../protocols/db/update-access-token-repository'
-import { AccountModel } from '../add-account/add-account-protocols'
 import { DbAuthentication } from './db-authentication'
+import { LoadAccountByEmailRepository, HashComparer, TokenGenerator, UpdateAccessTokenRepository, AuthenticationParams, AccountModel } from './db-authentication-protocols'
 
 type SutTypes = {
   sut: DbAuthentication
