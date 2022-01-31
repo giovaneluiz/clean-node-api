@@ -32,7 +32,7 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 
 const makeHashComparer = (): HashComparer => {
   class HashComparerStub implements HashComparer {
-    async compare (password: string, hash: string): Promise<boolean> {
+    async compare (value: string, hash: string): Promise<boolean> {
       return true
     }
   }
