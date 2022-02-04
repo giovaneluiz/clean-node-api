@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/main/server.js",
-    "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
+    "start": "node ./dist/main/server.js",
     "build": "rimraf dist && tsc",
-    "up": "npm run build && docker-compose up -d",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "up": "npm run build && docker-compose up",
     "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
@@ -50,9 +50,10 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.0",
+    "nodemon": "^2.0.15",
     "validator": "^13.7.0"
   },
   "engines": {
     "node": "16.x"
-  }    
+  }
 }
