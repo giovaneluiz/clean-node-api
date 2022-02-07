@@ -4,11 +4,13 @@
         "module": "CommonJS",
         "target": "ES2019",
         "esModuleInterop": true,
-        "sourceMap": true,
+        // "sourceMap": true,
         "rootDir": "src",
         "baseUrl": "src",
         "paths": {
-            "@/*": ["*"]
+            "@/*": [
+                "*"
+            ]
         }
     },
     "include": [
