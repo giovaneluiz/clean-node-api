@@ -16,7 +16,7 @@ const makeFakeSurveys = (): SurveyModel[] => {
 
 const makeLoadSurveysRepository = (): LoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements LoadSurveysRepository {
-    async loadSurveysAll (): Promise<SurveyModel[]> {
+    async loadAll (): Promise<SurveyModel[]> {
       return makeFakeSurveys()
     }
   }
@@ -48,9 +48,9 @@ describe('DbLoadSurveys', () => {
 
   test('Should call LoadSurveysRepository', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
-    const loadSurveysAllSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadSurveysAll')
+    const loadAllSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAll')
     await sut.load()
-    expect(loadSurveysAllSpy).toHaveBeenCalled()
+    expect(loadAllSpy).toHaveBeenCalled()
   })
 
   test('Should return a list of Surveys on success', async () => {
@@ -61,7 +61,7 @@ describe('DbLoadSurveys', () => {
 
   test('Should throw if LoadSurveysRepository throws', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
-    jest.spyOn(loadSurveysRepositoryStub, 'loadSurveysAll').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(loadSurveysRepositoryStub, 'loadAll').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const promise = sut.load()
     await expect(promise).rejects.toThrow()
   })

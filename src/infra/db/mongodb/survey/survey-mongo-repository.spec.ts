@@ -65,7 +65,7 @@ describe('Survey Mongo Repository', () => {
         date: new Date()
       }])
       const sut = makeSut()
-      const surveys = await sut.loadSurveysAll()
+      const surveys = await sut.loadAll()
       expect(surveys.length).toBe(2)
       expect(surveys[0].question).toBe('any_question')
       expect(surveys[1].question).toBe('other_question')
@@ -73,7 +73,7 @@ describe('Survey Mongo Repository', () => {
 
     test('Should load empty list', async () => {
       const sut = makeSut()
-      const surveys = await sut.loadSurveysAll()
+      const surveys = await sut.loadAll()
       expect(surveys.length).toBe(0)
     })
   })
