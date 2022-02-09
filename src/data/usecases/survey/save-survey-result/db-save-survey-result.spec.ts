@@ -11,14 +11,14 @@ type SutTypes = {
 const makeFakeSurveyResult = (): SurveyResultModel => ({
   id: 'any_id',
   accountId: 'any_account_id',
-  surveyID: 'any_survey_id',
+  surveyId: 'any_survey_id',
   answer: 'any_answer',
   date: new Date()
 })
 
 const makeFakeSurveyResultData = (): SaveSurveyResultModel => ({
   accountId: 'any_account_id',
-  surveyID: 'any_survey_id',
+  surveyId: 'any_survey_id',
   answer: 'any_answer',
   date: new Date()
 })
