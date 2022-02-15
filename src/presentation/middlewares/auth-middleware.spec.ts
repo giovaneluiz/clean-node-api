@@ -2,7 +2,7 @@ import { AuthMiddleware } from './auth-middleware'
 import { HttpRequest, AccountModel, LoadAccountByToken } from './auth-middleware-protocols'
 import { AccessDeniedError } from '../errors'
 import { forbidden, httpSuccess, serverError } from '../helpers/http/http-helper'
-import { throwError } from '@/domain/test'
+import { mockAccountModel, throwError } from '@/domain/test'
 
 type SutTypes = {
   sut: AuthMiddleware
@@ -12,7 +12,7 @@ type SutTypes = {
 const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (accessToken: string, role?: string): Promise<AccountModel> {
-      return makeFakeAccount()
+      return mockAccountModel()
     }
   }
   return new LoadAccountByTokenStub()
@@ -22,13 +22,6 @@ const makeFakeRequest = (): HttpRequest => ({
   headers: {
     'x-access-token': 'any_token'
   }
-})
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'valid_password'
 })
 
 const makeSut = (role?: string): SutTypes => {
@@ -66,7 +59,7 @@ describe('Auth Middleware', () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(httpSuccess({
-      accountId: 'valid_id'
+      accountId: 'any_id'
     }))
   })
 
