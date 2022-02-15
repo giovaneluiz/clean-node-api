@@ -5,7 +5,7 @@ import { forbidden, httpSuccess, serverError } from '@/presentation/helpers/http
 import { SurveyModel } from '../../survey/load-surveys/load-surveys-controller-protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import { HttpRequest, LoadSurveyById } from './save-survey-result-controller-protocols'
-import { throwError } from '@/domain/test'
+import { mockSurveyModel, throwError } from '@/domain/test'
 import MockDate from 'mockdate'
 
 type SutTypes = {
@@ -24,18 +24,6 @@ const makeFakeRequest = (): HttpRequest => ({
   accountId: 'any_account_id'
 })
 
-const makeFakeSurvey = (): SurveyModel => {
-  return {
-    id: 'any_id',
-    question: 'any_question',
-    answers: [{
-      image: 'any_image',
-      answer: 'any_answer'
-    }],
-    date: new Date()
-  }
-}
-
 const makeFakeSurveyResult = (): SurveyResultModel => ({
   id: 'any_id',
   accountId: 'any_account_id',
@@ -47,7 +35,7 @@ const makeFakeSurveyResult = (): SurveyResultModel => ({
 const makeLoadSurveyById = (): LoadSurveyById => {
   class LoadSurveyByIdStub implements LoadSurveyById {
     async loadById (id: string): Promise<SurveyModel> {
-      return makeFakeSurvey()
+      return mockSurveyModel()
     }
   }
   return new LoadSurveyByIdStub()

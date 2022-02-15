@@ -1,6 +1,7 @@
 import { DbAddSurvey } from './db-add-survey'
-import { AddSurveyParams, AddSurveyRepository } from './add-survey-protocols'
-import { throwError } from '@/domain/test'
+import { AddSurveyRepository } from './add-survey-protocols'
+import { mockSurveyParams, throwError } from '@/domain/test'
+import { mockAddSurveyRepository } from '@/data/test'
 import MockDate from 'mockdate'
 
 type SutTypes = {
@@ -8,26 +9,8 @@ type SutTypes = {
   addSurveyRepositoryStub: AddSurveyRepository
 }
 
-const makeFakeSurveyData = (): AddSurveyParams => ({
-  question: 'any_question',
-  answers: [{
-    image: 'any_image',
-    answer: 'any_anwer'
-  }],
-  date: new Date()
-})
-
-const makeAddSurveyRepository = (): AddSurveyRepository => {
-  class AddSurveyRepositoryStub implements AddSurveyRepository {
-    async add (surveyData: AddSurveyParams): Promise<void> {
-      return new Promise(resolve => resolve())
-    }
-  }
-  return new AddSurveyRepositoryStub()
-}
-
 const makeSut = (): SutTypes => {
-  const addSurveyRepositoryStub = makeAddSurveyRepository()
+  const addSurveyRepositoryStub = mockAddSurveyRepository()
   const sut = new DbAddSurvey(addSurveyRepositoryStub)
 
   return {
@@ -48,7 +31,7 @@ describe('DbAddSurvey Usecase', () => {
   test('Should call AddSurveyRepository with correct values', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addSurveyRepositoryStub, 'add')
-    const surveyData = makeFakeSurveyData()
+    const surveyData = mockSurveyParams()
     await sut.add(surveyData)
     expect(addSpy).toHaveBeenCalledWith(surveyData)
   })
@@ -56,7 +39,7 @@ describe('DbAddSurvey Usecase', () => {
   test('Should throw if AddAccountRepository throws', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut()
     jest.spyOn(addSurveyRepositoryStub, 'add').mockImplementationOnce(throwError)
-    const promise = sut.add(makeFakeSurveyData())
+    const promise = sut.add(mockSurveyParams())
     await expect(promise).rejects.toThrow()
   })
 })
