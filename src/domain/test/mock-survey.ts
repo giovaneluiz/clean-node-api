@@ -13,7 +13,7 @@ export const mockSurveyModel = (): SurveyModel => {
   }
 }
 
-export const mockSurveyParams = (): AddSurveyParams => ({
+export const mockAddSurveyParams = (): AddSurveyParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
