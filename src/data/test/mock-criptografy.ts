@@ -3,7 +3,7 @@ import { Hasher, Decrypter, Encrypter, HashComparer } from '../protocols/criptog
 export const mockHasher = (): Hasher => {
   class EncrypterStub implements Hasher {
     async hash (value: string): Promise<string> {
-      return new Promise(resolve => resolve('any_password'))
+      return Promise.resolve('any_password')
     }
   }
   return new EncrypterStub()
