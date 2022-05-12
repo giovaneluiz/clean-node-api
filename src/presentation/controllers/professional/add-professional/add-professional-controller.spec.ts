@@ -40,4 +40,11 @@ describe('AddProfessional Controller', () => {
     await sut.handle(httpRequest)
     expect(addProfessionalSpy).toHaveBeenCalledWith(httpRequest.body)
   })
+
+  test('Should return 500 if AddProfessional throws', async () => {
+    const { sut, addProfessionalStub } = makeSut()
+    jest.spyOn(addProfessionalStub, 'add').mockImplementationOnce(throwError)
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
 })
