@@ -5,8 +5,8 @@ import { AddProfessional, AddProfessionalParams } from '@/domain/usecases/profes
 export class DbAddProfessional implements AddProfessional {
   constructor (private readonly addProfessionalRepository: AddProfessionalRepository) {}
 
-  async add (professional: AddProfessionalParams): Promise<ProfessionalModel> {
-    await this.addProfessionalRepository.add(professional)
-    return null
+  async add (data: AddProfessionalParams): Promise<ProfessionalModel> {
+    const newProfessional = await this.addProfessionalRepository.add(data)
+    return newProfessional
   }
 }
