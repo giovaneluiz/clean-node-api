@@ -1,5 +1,5 @@
 import { AddProfessional } from '@/domain/usecases/professional/add-professional'
-import { serverError } from '@/presentation/helpers/http/http-helper'
+import { httpSuccess, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class AddProfessionalController implements Controller {
@@ -7,8 +7,8 @@ export class AddProfessionalController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      await this.addProfessional.add(httpRequest.body)
-      return null
+      const professional = await this.addProfessional.add(httpRequest.body)
+      return httpSuccess(professional)
     } catch (error) {
       return serverError(error)
     }
