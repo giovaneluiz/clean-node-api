@@ -2,7 +2,7 @@ import { AddProfessionalRepository } from '@/data/protocols/db/professional/add-
 import { mockAddProfessionalRepository } from '@/data/test'
 import { DbAddProfessional } from '@/data/usecases/professional/db-add-professional'
 import { throwError } from '@/domain/test'
-import { mockAddProfessionalParams } from '@/domain/test/mock-professional'
+import { mockAddProfessionalParams, mockProfessional } from '@/domain/test/mock-professional'
 
 type SutTypes = {
   sut: DbAddProfessional
@@ -39,5 +39,11 @@ describe('DbAddProfessional', () => {
     jest.spyOn(addProfessionalRepositoryStub, 'add').mockImplementationOnce(throwError)
     const promise = sut.add(mockAddProfessionalParams())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should return an Professional on success', async () => {
+    const { sut } = makeSut()
+    const professional = await sut.add(mockAddProfessionalParams())
+    expect(professional).toEqual(mockProfessional())
   })
 })
