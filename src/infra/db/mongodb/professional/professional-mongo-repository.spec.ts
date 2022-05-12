@@ -17,7 +17,7 @@ describe('ProfessionalMongoRepository', () => {
     })
 
     beforeEach(async () => {
-      professionalCollection = await MongoHelper.getCollection('accounts')
+      professionalCollection = await MongoHelper.getCollection('professional')
       await professionalCollection.deleteMany({})
     })
 
