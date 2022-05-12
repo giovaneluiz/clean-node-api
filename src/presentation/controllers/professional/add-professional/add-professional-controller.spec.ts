@@ -1,7 +1,8 @@
 import { throwError } from '@/domain/test'
+import { mockProfessional } from '@/domain/test/mock-professional'
 import { AddProfessional } from '@/domain/usecases/professional/add-professional'
 import { AddProfessionalController } from '@/presentation/controllers/professional/add-professional/add-professional-controller'
-import { serverError } from '@/presentation/helpers/http/http-helper'
+import { httpSuccess, serverError } from '@/presentation/helpers/http/http-helper'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockAddProfessional } from '@/presentation/test'
 
@@ -46,5 +47,11 @@ describe('AddProfessional Controller', () => {
     jest.spyOn(addProfessionalStub, 'add').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(httpSuccess(mockProfessional()))
   })
 })
